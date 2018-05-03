@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;" charset="utf-8">
+    <title>${film.name!} | Hello云派网</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="${film.name!} | Hello云派网">
+    <meta name="author" content="Hello云派网">
+
+    <!-- Le styles -->
+    <link href="/assets/css/bootstrap.css" rel="stylesheet">
+    <link href="/css/filmview.css" rel="stylesheet" />
+    <link href="/assets/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="/assets/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+                    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+                                   <link rel="shortcut icon" href="/assets/ico/favicon.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" style="font-family: '微软雅黑'; font-weight: bold;color: #0088cc;" href="/">Hello云派网 </a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li><a href="/">首页</a></li>
+              <li class="active"><a href="/">电影</a></li>
+              <li><a href="/about">About</a></li>
+              <li><a href="/contact">Contact</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+		<div class="row">
+            <div class="span3">
+                <img class="img-polaroid" src="${film.pic!}" />
+                <div class="pl-like-bar">
+                    <span class="badge badge-success pl-like" data-id="${film.id}"><i class="icon-heart icon-white"></i> 喜欢 <pl>${film.like!}</pl></span> <span class="badge badge-warning pl-watching" data-id="${film.id}"><i class="icon-time icon-white"></i>  要看 <pl>${film.watching!}</pl></span> <span class="badge pl-watched" data-id="${film.id}"><i class="icon-ok-sign icon-white"></i>  已看 <pl>${film.watched!}</pl></span>
+                </div>
+            </div>
+            <div class="span9">
+                <h3>${film.name!}</h3>
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                    <tr>
+                        <td width="100">导演</td><td>${film.director!}</td>
+                    </tr>
+                    <tr>
+                        <td>主演</td><td>${film.getSubString("stars",9,"+")!}</td>
+                    </tr>
+                    <tr>
+                        <td>类型</td><td>${film.getSubString("genre",12,"+")!}</td>
+                    </tr>
+                    <tr>
+                        <td>地区</td><td>${film.region!}</td>
+                    </tr>
+                    <tr>
+                    <td>上映时间</td><td>${film.date!}</td>
+                    </tr>
+                    <tr>
+                        <td>片长</td><td>${film.length!}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="well">
+                    <p>
+                        ${film.summary}
+                    </p>
+                </div>
+
+                <div >
+                    <ul id="downloadTab" class="nav nav-tabs">
+                        <li class="active"><a href="#down" data-toggle="tab">资源下载</a></li>
+                    </ul>
+                    <div id="downloadTabContent" class="tab-content">
+                        <div class="tab-pane fade active in" id="down">
+                            <div class="alert alert-block alert-error fade in text-left pl-alert">
+                                <Strong>地址1：</Strong><a href="${film.url}">${film.getSubString("url",80,"...")!}</a>
+                                <a href="${film.url}" class="btn btn-success"><i class="icon-download-alt"></i>下载</a>
+                            </div>
+                            <div class="alert alert-block fade in text-left pl-alert">
+                                <Strong>地址2：</Strong><a href="${film.url}">${film.getSubString("url",80,"...")!}</a>
+                                <a href="${film.url}" class="btn btn-success"><i class="icon-download-alt"></i>下载</a>
+                            </div>
+                            <div class="alert alert-block alert-info fade in text-left pl-alert">
+                                <Strong>地址3：</Strong><a href="${film.url}">${film.getSubString("url",80,"...")!}</a>
+                                <a href="${film.url}" class="btn btn-success"><i class="icon-download-alt"></i>下载</a>
+                            </div>
+                            <div class="alert alert-block alert-success fade in text-left pl-alert">
+                                <Strong>地址4：</Strong><a href="${film.url}">${film.getSubString("url",80,"...")!}</a>
+                                <a href="${film.url}" class="btn btn-success"><i class="icon-download-alt"></i>下载</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+		</div>
+		<hr />
+		<footer>
+			<p>&copy; Hello云派网 2013 </p>
+		</footer>
+    </div> <!-- /container -->
+    
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.js"></script>
+    
+    <script src="/js/filmview.js"></script>
+  </body>
+</html>

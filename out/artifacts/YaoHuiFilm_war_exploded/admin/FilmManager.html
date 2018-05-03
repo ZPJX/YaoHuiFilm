@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <title>电影管理 | Hello云派网</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="电影管理 ,Hello云派网">
+    <meta name="author" content="Hello云派网">
+
+    <!-- Le styles -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="/css/filmmanager.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="/assets/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+                    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+                                   <link rel="shortcut icon" href="/assets/ico/favicon.png">
+  </head>
+
+  <body>
+
+    <div class="container">
+        <#if successMsg?exists>
+            <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Success!</strong> ${successMsg!}
+            </div>
+        </#if>
+        <#if (errorMsg?exists || idMsg?exists || nameMsg?exists || cidMsg?exists || cMsg?exists || addrMsg?exists || urlMsg?exists)>
+            <div class="alert alert-error">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Error!</strong> ${errorMsg!} ${idMsg!} ${nameMsg!} ${cidMsg!} ${cMsg!} ${addrMsg!} ${urlMsg!}
+            </div>
+        </#if>
+        <div class="pl-btns">
+            <div class="pl-add-btn">
+                <a data-toggle="modal" data-backdrop="false" href="#AddModal" class="btn btn-success"><i class="icon-plus"></i> 添加</a>
+            </div>
+            <div class="pagination pagination-right clearBoth">
+                <ul>
+                    <#if filmPage.getPageNumber()==1><li class="disabled"><#else><li></#if>
+                    <a href="/admin/filmmanager/${selectId}-${filmPage.getPageNumber()-1}">Prev</a></li>
+                    <!--<li><a href="javascript:void(0);">1</a></li>
+                    <li><a href="javascript:void(0);">2</a></li>
+                    <li><a href="javascript:void(0);">3</a></li>
+                    <li><a href="javascript:void(0);">4</a></li>
+                    <li><a href="javascript:void(0);">5</a></li> -->
+                    <#if filmPage.getPageNumber()==filmPage.getTotalPage()><li class="disabled"><#else><li></#if><a href="/admin/filmmanager/${selectId}-${filmPage.getPageNumber()+1}">Next</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="pl-table">
+            <table class="table table-bordered table-striped">
+                <thead><th>ID</th> <th>片名</th><th>导演</th><th>主演</th><th>地区</th><th>URL</th> <th><div class="btn-group pl-select-category">
+                    <button class="btn dropdown-toggle" data-toggle="dropdown">
+                        类别
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="/admin/filmmanager/0">全部</a></li>
+                        <li class="divider"></li>
+                        <#list genreList as cl>
+                            <li><a href="/admin/filmmanager/${cl.id}">${cl.name}</a></li>
+                        </#list>
+                    </ul>
+                </div></th><th>喜欢</th><th>要看</th><th>已看</th> <th>操作</th></thead>
+                <tbody>
+                <#list filmPage.getList() as sl>
+                    <tr>
+                        <td><a href="javascript:void(0);" data-toggle="tooltip" data-placement="left" title="${sl.id}"><img src="${sl.pic}"/></a></td>
+                        <td>${sl.name}</td>
+                        <td>${sl.getSubString("director",3,"+")}</td>
+                        <td>${sl.getSubString("stars",3,"+")}</td>
+                        <td>${sl.getSubString("region",2,"+")}</td>
+                        <td>${sl.getSubString("stars",14,"+")}</td>
+                        <td>${sl.getSubString("genre",12,"+")}</td>
+                        <td>${sl.like}</td>
+                        <td>${sl.watching}</td>
+                        <td>${sl.watched}</td>
+                        <td>
+                            <a class="viewBtn" data-path="/admin/film_view/${sl.id}" href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="预览"><i data-backdrop="false" data-toggle="modal" href="#ViewModal" class="icon-globe"></i></a>
+                            <a class="editBtn"
+                               href="javascript:void(0);"
+                               title="编辑"
+                               data-toggle="tooltip"
+                               data-placement="bottom"
+                               data-fid="${sl.id}"
+                               data-fname="${sl.name}"
+                               data-fdirector="${sl.director}"
+                               data-fpic="${sl.pic}"
+                               data-fstars="${sl.stars}"
+                               data-fgenreid="${sl.getEditGenreId()}"
+                               data-fgenre="${sl.getEditGenre()}"
+                               data-fregion="${sl.region}"
+                               data-flanguage="${sl.language}"
+                               data-flength="${sl.length}"
+                               data-fdate="${sl.date}"
+                               data-furl="${sl.url}"
+                               data-fsummary="${sl.summary}"
+                               >
+                                <i data-backdrop="false" data-toggle="modal" href="#EditModal" class="icon-edit"></i>
+                            </a>
+                            <a class="deleteBtn" href="/admin/deletefilm/${sl.id}-${selectId}" data-toggle="tooltip" data-placement="bottom" title="删除"><i class="icon-remove"></i></a>
+                        </td>
+                    </tr>
+                </#list>
+                </tbody>
+            </table>
+        </div>
+        <div class="pl-pagination clearBoth">
+            <div class="pl-pagination-info">
+                 当前第<strong>${filmPage.getPageNumber()}</strong>页 每页<strong>${filmPage.getPageSize()}</strong>项 共<strong>${filmPage.getTotalRow()}</strong>项 <strong>${filmPage.getTotalPage()}</strong>页
+            </div>
+        </div>
+
+    </div> <!-- /container -->
+
+    <div id="ViewModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="ViewModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3 id="ViewModalLabel">预览</h3>
+        </div>
+        <div class="modal-body">
+            <iframe id="viewIframe" frameborder="0" width="100%" height="380px" name="viewIframe">
+            </iframe>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal">关闭</button>
+        </div>
+    </div>
+    <div id="EditModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="EditModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3 id="EidtModalLabel">编辑电影</h3>
+        </div>
+        <div class="modal-body">
+            <form id="editFilmForm" class="form-horizontal" action="/admin/editfilm" method="post">
+                <div class="control-group">
+                    <div class="input-prepend">
+                        <span class="add-on">片名</span>
+                        <input name="selectId" type="hidden" value="${selectId}">
+                        <input name="editFilmId" id="editFilmId" type="hidden">
+                        <input name="editFilmName" class="span2" id="editFilmName" type="text">
+                    </div>
+                    <span class="help-inline"></span>
+                </div>
+                <div class="control-group">
+                    <div class="input-prepend">
+                        <span class="add-on">导演</span>
+                        <input name="editFilmDirector" class="span2" id="editFilmDirector" type="text">
+                    </div>
+                    <span class="help-inline"></span>
+                </div>
+                <div class="control-group">
+                    <div class="input-prepend input-append">
+                        <span class="add-on">类别</span>
+                        <input name="editFilmGenreId" id="editFilmGenreId" type="hidden">
+                        <input name="editFilmGenre" class="span2" id="editFilmGenre" type="text">
+                        <div class="btn-group">
+                            <button class="btn dropdown-toggle btn-warning" data-toggle="dropdown">
+                                选择
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu pl-select-category">
+                                <#list genreList as cl>
+                                    <li><a href="javascript:void(0);" data-id="${cl.id}" data-name="${cl.name}" data-target="editFilmGenre">${cl.name}</a></li>
+                                </#list>
+                            </ul>
+                        </div>
+                    </div>
+                    <a href="javascript:void(0);" data-target="editFilmGenre" class="pl-model-clear">清除</a>
+                </div>
+                <div class="control-group">
+                    <div class="input-prepend">
+                        <span class="add-on">主演</span>
+                        <input name="editFilmStars" class="span3" id="editFilmStars" type="text">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="input-prepend">
+                        <span class="add-on">地区</span>
+                        <input name="editFilmRegion" class="span3" id="editFilmRegion" type="text">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="input-prepend">
+                        <span class="add-on">语言</span>
+                        <input name="editFilmLanguage" class="span3" id="editFilmLanguage" type="text">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="input-prepend">
+                        <span class="add-on">片长</span>
+                        <input name="editFilmLength" class="span3" id="editFilmLength" type="text" placeholder="90分钟">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="input-prepend">
+                        <span class="add-on">上映</span>
+                        <input name="editFilmDate" class="span3" id="editFilmDate" type="text" placeholder="2013-01-01">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="input-prepend input-append">
+                        <span class="add-on">海报</span>
+                        <input name="editFilmPic" class="span3" id="editFilmPic" type="text" placeholder="Pic">
+                        <button id="editFilmUpload" class="btn btn-warning" type="button">上传</button>
+                    </div>
+                    <a id="editFilmSpinner" style="margin-left: 10px; display: none;"><img src="/img/spinner.gif"/></a>
+                </div>
+                <div class="control-group">
+                    <div class="input-prepend">
+                        <span class="add-on">地址</span>
+                        <input name="editFilmUrl" class="span4" id="editFilmUrl" type="text" placeholder="Url">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="input-prepend">
+                        <span class="add-on">简介</span>
+                        <textarea rows="3" name="editFilmSummary" class="span4" id="editFilmSummary"></textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal">关闭</button>
+            <button id="editFilmBtn" class="btn btn-primary">确定</button>
+        </div>
+    </div>
+    <div id="AddModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="AddModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3 id="AddModalLabel">添加电影</h3>
+        </div>
+        <div class="modal-body">
+            <form id="addFilmForm" class="form-horizontal" action="/admin/addfilm" method="post">
+                <div class="control-group">
+                    <div class="input-prepend">
+                        <span class="add-on">片名</span>
+                        <input name="selectId" type="hidden" value="${selectId}">
+                        <input name="addFilmName" class="span2" id="addFilmName" type="text">
+                    </div>
+                    <span class="help-inline"></span>
+                </div>
+                <div class="control-group">
+                    <div class="input-prepend">
+                        <span class="add-on">导演</span>
+                        <input name="addFilmDirector" class="span2" id="addFilmDirector" type="text">
+                    </div>
+                    <span class="help-inline"></span>
+                </div>
+                <div class="control-group">
+                    <div class="input-prepend input-append">
+                        <span class="add-on">类别</span>
+                        <input name="addFilmGenreId" id="addFilmGenreId" type="hidden">
+                        <input name="addFilmGenre" class="span2" id="addFilmGenre" type="text">
+                        <div class="btn-group">
+                            <button class="btn dropdown-toggle btn-warning" data-toggle="dropdown">
+                                选择
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu pl-select-category">
+                                <#list genreList as cl>
+                                    <li><a href="javascript:void(0);" data-id="${cl.id}" data-name="${cl.name}" data-target="addFilmGenre">${cl.name}</a></li>
+                                </#list>
+                            </ul>
+                        </div>
+                    </div>
+                    <a href="javascript:void(0);" data-target="addFilmGenre" class="pl-model-clear">清除</a>
+                </div>
+                <div class="control-group">
+                    <div class="input-prepend">
+                        <span class="add-on">主演</span>
+                        <input name="addFilmStars" class="span3" id="addFilmStars" type="text">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="input-prepend">
+                        <span class="add-on">地区</span>
+                        <input name="addFilmRegion" class="span3" id="addFilmRegion" type="text">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="input-prepend">
+                        <span class="add-on">语言</span>
+                        <input name="addFilmLanguage" class="span3" id="addFilmLanguage" type="text">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="input-prepend">
+                        <span class="add-on">片长</span>
+                        <input name="addFilmLength" class="span3" id="addFilmLength" type="text" placeholder="90分钟">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="input-prepend">
+                        <span class="add-on">上映</span>
+                        <input name="addFilmDate" class="span3" id="addFilmDate" type="text" placeholder="2013-01-01">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="input-prepend input-append">
+                        <span class="add-on">海报</span>
+                        <input name="addFilmPic" class="span3" id="addFilmPic" type="text" placeholder="Pic">
+                        <button id="addFilmUpload" class="btn btn-warning" type="button">上传</button>
+                    </div>
+                    <a id="addFilmSpinner" style="margin-left: 10px; display: none;"><img src="/img/spinner.gif"/></a>
+                </div>
+                <div class="control-group">
+                    <div class="input-prepend">
+                        <span class="add-on">地址</span>
+                        <input name="addFilmUrl" class="span4" id="addFilmUrl" type="text" placeholder="Url">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="input-prepend">
+                        <span class="add-on">简介</span>
+                        <textarea rows="3" name="addFilmSummary" class="span4" id="addFilmSummary"></textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal">关闭</button>
+            <button id="addFilmBtn" class="btn btn-primary">确定</button>
+        </div>
+    </div>
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/js/filmmanager.js"></script>
+    <script src="/js/jquery.upload.js"></script>
+
+  </body>
+</html>

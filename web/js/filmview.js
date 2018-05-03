@@ -1,0 +1,26 @@
+$(function(){
+    $('.pl-like').click(function(){
+        $.get(
+            "/film/like/"+$('.pl-like').attr("data-id"),
+            function(data){
+                $('.pl-like>pl').text(data);
+            }
+        );
+    });
+    $('.pl-watching').click(function(){
+        $.get(
+            "/film/watching/"+$('.pl-watching').attr("data-id"),
+            function(data){
+                $('.pl-watching>pl').text(data);
+            }
+        );
+    });
+    $('.pl-watched').click(function(){
+        $.get(
+            "/film/watched/"+$('.pl-watched').attr("data-id"),
+            function(data){
+                $('.pl-watched>pl').text(data);
+            }
+        );
+    });
+})

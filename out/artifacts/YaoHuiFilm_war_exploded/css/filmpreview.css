@@ -1,0 +1,16 @@
+@charset "utf-8";
+@import "common.css";
+
+.pl-img img{
+    width: 198px;
+    height: 286px;
+}
+.pl-table{
+    width: 260px;
+}
+.pl-table>table{
+    margin-bottom: 25px;
+}
+.pl-alert{
+    margin-bottom: 0px;
+}

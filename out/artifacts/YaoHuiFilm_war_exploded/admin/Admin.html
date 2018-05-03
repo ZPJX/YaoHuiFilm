@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <title>后台管理 | Hello云派网</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="后台管理,Hello云派网">
+    <meta name="author" content="Hello云派网">
+
+    <!-- Le styles -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="/css/admin.css" rel="stylesheet">
+    
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="/assets/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+                    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+                                   <link rel="shortcut icon" href="/assets/ico/favicon.png">
+  </head>
+
+  <body>
+
+	<div id="header">
+		<img id="logo" src="/img/adminlogo.png" />
+		<h1>Hello云派网</h1>
+		<a class="admin-view-index" href="/">Visit Site</a>
+		<p>你好 <strong>${username}</strong> | <a href="SettingManager.html" target="right-frame">设置</a> | <a href="/admin/logout">退出</a></p>
+	</div>
+	<div id="container">
+		<div id="sidebar">
+			<a class="menu" href="/admin">后台管理</a>
+			<ul id="sidebar-list" class="navigation">
+				<li class="active"><a href="/admin/filmmanager" target="right-frame"><img src="/img/icon/text_list_bullets.png" alt=""/>电影管理</a></li>
+				<li><a href="UserManager.html" target="right-frame"><img src="/img/icon/user.png" alt=""/>用户管理</a></li>
+				<li><a href="SettingManager.html" target="right-frame"><img src="/img/icon/table.png" alt=""/>系统设置</a></li>
+			</ul>
+		</div>
+		<div id="content" >
+			<iframe id="right-frame" name="right-frame" frameborder="0" width="100%" height="100%" src="/admin/filmmanager"></iframe>
+		</div>
+	</div>
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/js/admin.js"></script>
+
+  </body>
+</html>

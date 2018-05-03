@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <title>电影预览 | Hello云派网</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="后台欢迎 ,Hello云派网">
+    <meta name="author" content="Hello云派网">
+
+    <!-- Le styles -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="/css/filmpreview.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="/assets/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+                    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+                                   <link rel="shortcut icon" href="/assets/ico/favicon.png">
+  </head>
+
+  <body>
+    <div class="container">
+        <#if successMsg?exists>
+            <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Success!</strong> ${successMsg!}
+            </div>
+        </#if>
+        <#if (errorMsg?exists)>
+            <div class="alert alert-error">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Error!</strong> ${errorMsg!}
+            </div>
+        </#if>
+
+        <div class="pull-left pl-img">
+            <img class="img-polaroid" src="${film.pic!}" />
+        </div>
+        <div class="pull-right pl-table">
+            <table class="table table-bordered table-striped">
+               <tbody>
+               <tr>
+                   <td>片名</td><td>${film.name!}</td>
+               </tr>
+               <tr>
+                   <td>导演</td><td>${film.director!}</td>
+               </tr>
+               <tr>
+                   <td>主演</td><td>${film.getSubString("stars",9,"+")!}</td>
+               </tr>
+               <tr>
+                   <td>类型</td><td>${film.getSubString("genre",12,"+")!}</td>
+               </tr>
+               <tr>
+                   <td>地区</td><td>${film.region!}</td>
+               </tr>
+               <tr>
+                   <td>上映时间</td><td>${film.date!}</td>
+               </tr>
+               <tr>
+                   <td>片长</td><td>${film.length!}</td>
+               </tr>
+               <tr>
+                   <td>评分</td><td><span class="badge badge-success">喜欢${film.like!}</span> <span class="badge badge-warning">要看${film.watching!}</span> <span class="badge">已看${film.watched!}</span></td>
+               </tr>
+               </tbody>
+            </table>
+        </div>
+
+        <div class="clearBoth"></div>
+        <div class="alert alert-block alert-info fade in text-left pl-alert">
+             <Strong>下载地址：</Strong><a href="${film.url}">${film.getSubString("url",44,"...")!}</a>
+        </div>
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+
+  </body>
+</html>

@@ -1,0 +1,68 @@
+@charset "utf-8";
+@import "common.css";
+
+.pl-table{
+    width: 80%;
+	margin: 10px 0 0 0;
+    float: left;
+}
+.pl-btns{
+    width: 130px;
+    float: right;
+    padding: 10px 0;
+}
+.pl-btns li>a{
+    margin-right: 10px;
+}
+.pl-btns li:last-child>a{
+    border: 1px solid #ddd;
+}
+.pl-add-btn{
+    float: right;
+    margin: 10px 15px 40px 0 ;
+}
+.pl-modal-form{
+    margin: 0;
+    height: 300px;
+    padding: 100px 0 0 20px;
+}
+.pl-modal-body{
+    overflow-y: visible;
+}
+.pl-pagination{
+}
+.pl-pagination-info{
+    float: left;
+    color: #cccccc;
+    padding: 7px 0 0 4px;
+    font-size: 12px;
+}
+.pl-pagination-info strong{
+    /*color:#ee4040; */
+    /*color: #f46f6f;*/
+    color: #aaaaaa;
+}
+.pl-select-category{
+    width: 100%;
+}
+.pl-select-category .btn{
+    width: 100%;
+}
+.pl-table>table td{
+    vertical-align: middle;
+}
+.pl-table>table img{
+    height: 30px;
+}
+.pl-table>table tr>td:first-child{
+    padding: 2px;
+    text-align: center;
+}
+.pl-table>table tr>td:first-child>a{
+    display: block;
+}
+a.pl-model-clear{
+    text-decoration: none;
+    color: #999999;
+    margin-left: 10px;
+}

@@ -1,0 +1,48 @@
+@charset "utf-8";
+@import "common.css";
+
+body {
+	padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+}
+
+.pl-like{
+    cursor: pointer;
+}
+.pl-watching{
+    cursor: pointer;
+}
+.pl-watched{
+    cursor: pointer;
+}
+.well p{
+    text-indent: 2em;
+}
+#downloadTab{
+    margin-bottom: 0;
+}
+#downloadTabContent{
+    border-bottom: 1px solid #ddd;
+    /*padding: 20px;*/
+    padding: 5px 0;
+}
+#downloadTabContent .alert{
+    margin-bottom: 3px;
+    -webkit-border-radius: 0 0 0 0;
+    -moz-border-radius: 0 0 0 0;
+    border-radius: 0 0 0 0;
+}
+#downloadTabContent a{
+    text-decoration: none;
+}
+#downloadTabContent .btn{
+    color: #fefefe;
+    margin-left: 30px;
+}
+.pl-like-bar{
+    padding: 10px 0 0 10px;
+}
+.pl-like-bar span{
+    height: 20px;
+    margin-right:5px;
+    line-height: 20px;
+}

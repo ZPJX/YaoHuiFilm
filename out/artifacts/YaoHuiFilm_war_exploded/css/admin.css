@@ -1,0 +1,121 @@
+@charset "utf-8";
+@import "common.css";
+
+body{
+	color: #222222;
+	margin: 0;
+	padding: 0;
+	clip: auto;
+	overflow-y: hidden;
+	overflow-x: auto;
+}
+#header{
+	width: 100%;
+	height: 50px;
+	background: #000000;
+	color: #FFFFFF;
+	overflow: hidden;
+	min-width: 950px;
+}
+img#logo {
+	width: 25px;
+	height: 25px;
+	margin: 12px 0px 9px 20px;
+	padding: 0 10px 0 0;
+	float: left;
+	border-right: 1px solid #6b6969;
+}
+div#header h1 {
+	display: inline;
+	float: left;
+	line-height: 48px;
+	margin: 0 0 0 10px;
+	letter-spacing: 1px;
+	font-size:25px;
+}
+a.admin-view-index {
+	background: url(../img/green_sprite.png) repeat-x;
+	background-position: 0px 0px;
+	border: 1px solid #484848;
+	float: left;
+	margin: 18px 0 0 10px;
+	font-size: 11px;
+	color: #BBBBBB;
+	line-height: 16px;
+	padding: 0px 5px;
+	text-decoration: none;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+}
+div#header p {
+	display: inline;
+	float: right;
+	margin: 0 20px 0 0;
+	font-size: 12px;
+	line-height: 48px;
+	color: #FFFFFF;
+}
+div#header p>a {
+	color: #AAAAAA;
+	text-decoration: none;
+}
+#container{
+	clear: both;
+	margin-left: 250px;
+	min-width: 700px;
+	background: #ffffff;
+}
+#sidebar{
+	background: #e6e6e6;
+	width: 249px;
+	clear: left;
+	float: left;
+	position: relative;
+	margin: 0 0 0 -250px;
+	display: inline;
+	border-right: 1px solid #c4c4c4;
+	height: 100%;
+	overflow: hidden;
+	min-height: 210px;
+}
+a.menu {
+	padding: 7px 15px;
+	margin: 15px 20px 0 20px;
+	display: block;
+	background: url(../img/menu_button.png) no-repeat top left;
+	font-size: 14px;
+	font-weight: bold;
+	color: #555555 !important;
+	text-decoration: none;
+	z-index: 2;
+	position: relative;
+	text-transform: capitalize;
+}
+ul.navigation {
+	list-style: none;
+	margin: 20px 0 0 0;
+	padding: 0;
+}
+ul.navigation li a {
+	text-decoration: none;
+	color: #444444;
+	font-size: 13px;
+	display: block;
+	padding: 5px 0 5px 30px;
+}
+ul.navigation li a img {
+	margin: 2px 15px 0 0;
+	float: left;
+}
+ul.navigation li a:hover{
+	background:#e0e0e0;
+}
+			
+ul.navigation li.active a{
+	background:#dbdbdb;
+}
+#content{
+	position: relative;
+	overflow: auto;
+	padding: 20px 20px;
+}
